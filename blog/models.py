@@ -14,7 +14,7 @@ class Post(models.Model):
     tag = models.ManyToManyField('Tag', verbose_name="标签")
 
     content = models.TextField(verbose_name="内容", help_text="注：目前只支持markdown数据")
-    status = models.IntegerField(default=1, choices=,verbose_name="状态")
+    status = models.IntegerField(default=1, choices=STATUS_ITEMS, verbose_name="状态")
     owner = models.ForeignKey(User, verbose_name="作者", on_delete=True)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
