@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Post(models.Model):
@@ -15,6 +15,14 @@ class Post(models.Model):
 
     content = models.TextField(verbose_name="内容", help_text="注：目前只支持markdown数据")
     status = models.IntegerField(default=1, choices=,verbose_name="状态")
+    owner = models.ForeignKey(User, verbose_name="作者")
+    created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+
+    class Meta:
+        verbose_name = verbose_name_plural = "文章"
+
+
+
 
 
 
