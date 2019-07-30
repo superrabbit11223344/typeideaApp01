@@ -21,6 +21,11 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def status_show(self):
+        return '当前状态:%s' % self.status
+
+    status_show.short_description = '展示状态'
+
     class Meta:
         verbose_name = verbose_name_plural = "文章"
 
