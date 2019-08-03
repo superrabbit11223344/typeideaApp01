@@ -6,14 +6,14 @@ from .models import Post, Tag
 
 
 def post_list(request, category_id=None, tag_id=None):
-    queryset = Post.objects.all()
-    page = request.GET.get('page', 1)
-    page_size = 4
+    page = request.GET.get('page', 1)  # 获取page的第一个参数，即总页数
+    page_size = 4  # 每页的个数
     try:
         page = int(page)
     except TypeError:
         page = 1
 
+    queryset = Post.objects.all()   # 获取所有的Post对象
     if category_id:
         # 分类页面
         queryset = queryset.filter(category_id=category_id)
@@ -25,10 +25,10 @@ def post_list(request, category_id=None, tag_id=None):
             queryset = []
         else:
             queryset = tag.post_set.all()
-    paginator = Paginator(queryset, page_size)
+    paginator = Paginator(queryset, page_size)  # 分页器，第一个参数是需要展示的对象queryset，第二个参数是每一页展示的数据个数
     try:
-        posts = paginator.page(page)
-    except EmptyPage:
+        posts = paginator.page(page)   # paginator的page方法，对page进行分页处理
+    except EmptyPage:   # 异常捕获
         posts = paginator.page(paginator.num_pages)
     context = {
         'posts': posts,
