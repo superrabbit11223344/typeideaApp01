@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage
 
-from .models import Post, Tag
+from .models import Post, Tag, Category
+from config.models import SideBar
 
 
 def post_list(request, category_id=None, tag_id=None):
@@ -30,8 +31,20 @@ def post_list(request, category_id=None, tag_id=None):
         posts = paginator.page(page)   # paginator的page方法，对page进行分页处理
     except EmptyPage:   # 异常捕获
         posts = paginator.page(paginator.num_pages)
+
+    categories = Category.objects.filter(status=1)  # TODO: fix magic number
+    nav_cates = []
+    cates = []
+    for cate in categories:
+        if cate.is_nav:
+            nav_cates.append(cate)
+        else:
+            cates.append(cate)
+
     context = {
         'posts': posts,
+        'nav_cates': nav_cates,
+        'cates': cates,
     }
     return render(request, 'blog/list.html', context=context)
 
