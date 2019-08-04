@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage
 
 from .models import Post, Tag, Category
 from config.models import SideBar
+from comment.models import Comment
 
 
 def post_list(request, category_id=None, tag_id=None):
@@ -41,10 +42,19 @@ def post_list(request, category_id=None, tag_id=None):
         else:
             cates.append(cate)
 
+    side_bars = SideBar.objects.filter(status=1)
+    recently_posts = Post.objects.filter(status=1)[:10]
+    # hot_posts = Post.objects.filter(status=1).order_by('views')[:10]
+    recently_comments = Comment.objects.filter(status=1)[:10]
+
+
     context = {
         'posts': posts,
         'nav_cates': nav_cates,
         'cates': cates,
+        'side_bars': side_bars,
+        'recently_posts': recently_posts,
+        'recently_comments': recently_comments,
     }
     return render(request, 'blog/list.html', context=context)
 
