@@ -1,13 +1,9 @@
-<h1>list</h1>
-<ul>
-    {% for cate in nav_cates %}
-        <li><a href="{% url 'category' cate.id %}">{{ cate.name }}</a></li>
-    {% endfor %}
-</ul>
-<hr/>
+{% extends "./base.html" %}
 
-{% if posts %}
-    <ul>
+{% block content %}
+<ul>
+    <hr/>
+        {% if posts %}
        {% for post in posts %}
            <li>
                title: <a href='{% url 'detail' post.id %}'>{{ post.title }}</a><br/>
@@ -17,39 +13,8 @@
     {% if posts.has_previous %}<a href="?page={{ posts.number|add:"-1" }}">上一页</a>{% endif %}
     page{{ posts.number }} of {{ posts.paginator.num_pages }}.
         {% if posts.has_next %}<a href="?page={{ posts.number|add:"1" }}">下一页</a>{% endif %}
-    </ul>
     {% else %}
         EMPTY!!!
 {% endif %}
-<hr/>
-<ul>
-    {% for cate in cates %}
-        <li><a href="{% url 'category' cate.id %}">{{ cate.name }}</a></li>
-    {% endfor %}
 </ul>
-
-<hr/>
-
-<ul>
-    {% for side in side_bars %}
-        <h4>{{ side.title }}</h4>
-        <div>
-        {% if side.display_type == 1 %}
-            {% autoescape off %}
-            {{ side.content }}
-            {% endautoescape %}
-        {% elif side.display_type == 2 %}
-        <ul>
-            {% for post in recently_posts %}
-                <li>{{ post.title }}</li>
-            {% endfor %}
-        </ul>
-        {% elif side.display_type == 4 %}
-            {% for comment in recently_comments %}
-                <li>{{ comment.content }}</li>
-            {% endfor %}
-         {% endif %}
-        </div>
-    {% endfor %}
-</ul>
-
+{% endblock %}

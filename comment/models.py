@@ -1,6 +1,7 @@
 from django.db import models
 from blog.models import Post
 
+
 class Comment(models.Model):
     STATUS_ITEMS = (
         (1, '正常'),
