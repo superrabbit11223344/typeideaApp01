@@ -43,6 +43,7 @@ class BasePostsView(ListView, CommonMixin):
     template_name = 'blog/list.html'
     context_object_name = 'posts'
     paginate_by = 3
+    allow_empty = True
 
 
 class IndexView(BasePostsView):
