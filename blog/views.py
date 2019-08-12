@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView     # ListView 更适合做列表展示
+from django.conf import settings
 
 from .models import Post, Tag, Category
 from config.models import SideBar
@@ -40,7 +41,7 @@ class CommonMixin(object):
 
 class BasePostsView(ListView, CommonMixin):
     model = Post
-    template_name = 'blog/list.html'
+    template_name = 'themes/default/blog/list.html'
     context_object_name = 'posts'
     paginate_by = 3
     allow_empty = True
@@ -72,7 +73,7 @@ class TagView(BasePostsView):
 
 class PostView(DetailView, CommonMixin):
     model = Post
-    template_name = 'blog/detail.html'
+    template_name = 'themes/default/blog/detail.html'
     context_object_name = 'post'
 
 
