@@ -3,7 +3,8 @@ from django.db import connection
 from django.test import TestCase
 from django.db.models import Count
 
-from .models import Category
+from .models import Category, Post
+from config.models import SideBar, Link
 
 
 class TestCategory(TestCase):
@@ -16,6 +17,13 @@ class TestCategory(TestCase):
             Category(name='bate__bulk_%s' % i, owner=user)
             for i in range(10)
         ])
+        SideBar.objects.bulk_create([
+            SideBar(title='sidebar_%s' % i, owner=user)
+            for i in range(20)
+        ])
+
+
+
 
 
     def test_filter(self):
@@ -42,6 +50,7 @@ class TestCategory(TestCase):
         categories = Category.objects.filter(status=1).defer('created_time')
         for cate in categories:
             print(cate.created_time)
+
     def test_value(self):
         categories = Category.objects.values('name')
         print(categories)
@@ -50,4 +59,12 @@ class TestCategory(TestCase):
         print(categories)
 
         print(connection)
+
+    def test_sidebar(self):
+        side_bars = SideBar.objects.filter(status=1)
+        recently_posts = SideBar.objects.filter(status=1)[:10]
+        print(side_bars)
+        print(recently_posts)
+        print(SideBar.objects.all())
+
 

@@ -3,6 +3,8 @@ from blog.models import Post
 
 
 class Comment(models.Model):
+    STATUS_NORMAL = 1
+    STATUS_DELETE = 0
     STATUS_ITEMS = (
         (1, '正常'),
         (2, '删除'),
