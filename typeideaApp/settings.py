@@ -123,6 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+THEME = 'themes/default'
+# STATIC_ROOT = '/tmp/static'  ## 服务器路径
 STATIC_URL = '/static/'
 
-THEME = 'themes/default'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, THEME, "static"),
+]
+

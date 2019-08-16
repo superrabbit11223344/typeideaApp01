@@ -1,12 +1,13 @@
-from django.views.generic import ListView, DetailView     # ListView 更适合做列表展示
-from django.conf import settings
+from django.views.generic import View, ListView, DetailView     # ListView 更适合做列表展示
+from django.views.generic.detail import SingleObjectMixin
 
 from .models import Post, Tag, Category
 from config.models import SideBar
 from comment.models import Comment
 
 
-class CommonMixin(object):
+
+class CommonMixin():
     def get_category_context(self):
         categories = Category.objects.filter(status=1)  # TODO: fix magic number
         nav_cates = []
@@ -18,30 +19,32 @@ class CommonMixin(object):
                 cates.append(cate)
         return {
             'nav_cates': nav_cates,
-            'cates': cates,
+            'cates': cates
         }
 
     def get_context_data(self, **kwargs):
         # context = super(CommonMixin, self).get_context_data()
+        context = super().get_context_data(**kwargs)
 
         side_bars = SideBar.objects.filter(status=1)
         recently_posts = Post.objects.filter(status=1)[:10]
         # hot_posts = Post.objects.filter(status=1).order_by('views')[:10]
         recently_comments = Comment.objects.filter(status=1)[:10]
 
-        kwargs.update({
+        context.update({
             'side_bars': side_bars,
             'recently_posts': recently_posts,
             'recently_comments': recently_comments,
-            'footer_name': 'power by superrabbit',
+            'footer_name': 'power by superrabbit'
         })
-        kwargs.update(self.get_category_context())
-        return super(CommonMixin, self).get_context_data(**kwargs)
+        context.update(self.get_category_context())
+        # return super(CommonMixin, self).get_context_data(**kwargs)
+        return context
 
 
 class BasePostsView(ListView, CommonMixin):
     model = Post
-    template_name = 'themes/default/blog/list.html'
+    template_name = 'themes/default/template/blog/list.html'
     context_object_name = 'posts'
     paginate_by = 3
     allow_empty = True
@@ -73,7 +76,7 @@ class TagView(BasePostsView):
 
 class PostView(DetailView, CommonMixin):
     model = Post
-    template_name = 'themes/default/blog/detail.html'
+    template_name = 'themes/default/template/blog/detail.html'
     context_object_name = 'post'
 
 
