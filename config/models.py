@@ -4,14 +4,16 @@ from django.db import models
 
 
 class Link(models.Model):
+    STATUS_NORMAL = 1
+    STATUS_DELETE = 0
     STATUS_ITEMS = (
         (1, '正常'),
         (2, '删除'),
     )
     title = models.CharField(max_length=50, verbose_name="标题")
     href = models.URLField(verbose_name="链接")  # 默认长度200
-    status = models.PositiveIntegerField(default=1, choices=STATUS_ITEMS, verbose_name="状态")
-    weight = models.PositiveIntegerField(default=1, choices=zip(range(1, 6), range(1, 6)),
+    status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
+    weight = models.PositiveIntegerField(default=STATUS_NORMAL, choices=zip(range(1, 6), range(1, 6)),
                                          verbose_name="权重",
                                          help_text="权重越高展示顺序约靠前")
 

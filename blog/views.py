@@ -1,11 +1,10 @@
 from django.db.models import Q
-from django.views.generic import View, ListView, DetailView  # ListView 更适合做列表展示
+from django.views.generic import ListView, DetailView  # ListView 更适合做列表展示
 from django.shortcuts import get_object_or_404
 
 
 from .models import Post, Tag, Category
 from config.models import SideBar
-
 
 
 class CommonViewMixin:
@@ -53,7 +52,8 @@ class TagView(IndexView):
     def get_queryset(self):
         queryset = super().get_queryset()
         tag_id = self.kwargs.get('tag_id')
-        return queryset.filter(tag_id = tag_id)
+        return queryset.filter(tag_id=tag_id)
+
 
 class PostDetailView(CommonViewMixin, DetailView):
     queryset = Post.latest_posts()
@@ -76,6 +76,13 @@ class SearchView(IndexView):
         if not keyword:
             return queryset
         return queryset.filter(Q(title__icontains=keyword) | Q(desc__icontains=keyword))
+
+
+class AuthorView(IndexView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        author_id = self.kwargs.get('owner_id')
+        return queryset.filter(owner_id=author_id)
 
 
 
