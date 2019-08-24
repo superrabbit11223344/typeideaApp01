@@ -9,7 +9,8 @@ class Comment(models.Model):
         (1, '正常'),
         (2, '删除'),
     )
-    post = models.ForeignKey(Post, verbose_name="文章", on_delete=True)
+    # post = models.ForeignKey(Post, verbose_name="文章", on_delete=True)
+    target = models.CharField(max_length=2000, null=True, verbose_name="评论目标")
     content = models.CharField(max_length=2000, verbose_name="内容")
     nickname = models.CharField(max_length=50, verbose_name='昵称')
     website = models.URLField(verbose_name="网站")
@@ -19,3 +20,7 @@ class Comment(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = "评论"
+
+    @classmethod
+    def get_by_target(cls, target):
+        return cls.objects.filter(target=target, status=cls.STATUS_NORMAL)
