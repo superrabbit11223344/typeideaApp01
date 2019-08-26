@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+import mistune
 # Create your models here.
 
 
@@ -17,6 +19,7 @@ class Post(models.Model):
     tag = models.ManyToManyField('Tag', related_name='posts', verbose_name="标签")
 
     content = models.TextField(verbose_name="内容", help_text="注：目前只支持markdown数据")
+    content_html = models.TextField(verbose_name='正文html代码', blank=True, editable=False)
     status = models.IntegerField(default=1, choices=STATUS_ITEMS, verbose_name="状态")
     owner = models.ForeignKey(User, verbose_name="作者", on_delete=True)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
@@ -30,10 +33,15 @@ class Post(models.Model):
     def status_show(self):
         return '当前状态:%s' % self.status
 
+    def save(self, *args, **kwargs):
+        self.content_html = mistune.markdown(self.content)
+        super().save(*args, **kwargs)
+
     status_show.short_description = '展示状态'
 
     class Meta:
         verbose_name = verbose_name_plural = "文章"
+
     @classmethod
     def get_by_tag(tag_id):
         try:
