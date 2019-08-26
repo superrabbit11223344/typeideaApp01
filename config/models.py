@@ -62,7 +62,7 @@ class SideBar(models.Model):
     @property
     def content_html(self):
         """直接渲染模板"""
-        from blog.models import Post # 避免循环引用
+        from blog.models import Post  # 避免循环引用
         from comment.models import Comment
 
         result = ''
@@ -85,6 +85,3 @@ class SideBar(models.Model):
             result = render_to_string('config/blocks/sidebar_comments.html', context)
         return result
 
-    @classmethod
-    def get_all(cls):
-        return cls.objects.filter(status=cls.STATUS_SHOW)

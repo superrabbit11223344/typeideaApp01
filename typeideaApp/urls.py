@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.conf.urls import url
-# from blog.views import post_list, post_detail
 from config.views import LinkListView
 from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchView, AuthorView
 from comment.views import CommentView

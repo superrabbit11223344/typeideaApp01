@@ -19,6 +19,7 @@ class CommentForm(forms.ModelForm):
         )
     )
     website = forms.CharField(
+        label = '网站',
         max_length=100,
         widget=forms.widgets.URLInput(
             attrs={'class': 'form-control', 'style': 'width: 60%;'}
@@ -36,6 +37,7 @@ class CommentForm(forms.ModelForm):
         content = self.cleaned_data.get('content')
         if len(content) < 10:
             raise forms.ValidationError('内容怎么能这么短呢！！')
+        return content
 
     class Meta:
         model = Comment

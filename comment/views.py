@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 
 from .forms import CommentForm
 
+
 class CommentView(TemplateView):
     http_method_names = ['post']
     template_name = 'comment/result.html'
