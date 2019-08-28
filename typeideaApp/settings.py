@@ -32,6 +32,9 @@ INSTALLED_APPS = [
     'config',
     'comment',
     'typeideaApp',
+    'xadmin',
+    'crispy_forms',
+    'reversion',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +45,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'blog.middleware.user_id.UserIDMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 
-class BaseOwnerAdmin(admin.ModelAdmin):
+class BaseOwnerAdmin(object):
     """
     针对有owner属性的数据，重写:
     1. save_model -保证每条数据都属于当前用户
-    2. 重写get_querryset -保证每个用户只看到自己的文章
+    2. 重写get_queryset -保证每个用户只看到自己的文章
     """
     def get_queryset(self, request):
         qs = super(BaseOwnerAdmin, self).get_queryset(request)
