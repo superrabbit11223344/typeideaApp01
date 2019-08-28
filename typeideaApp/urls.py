@@ -11,7 +11,7 @@ from .custom_site import custom_site
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
 
-import xadmin
+# import xadmin
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name="index"),
@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^comment/$', CommentView.as_view(), name='comment'),
     url(r'^rss|feed', LatestPostFeed(), name='rss'),
     url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
-    url(r'^admin/', xadmin.site.urls, name='xadmin'),
-    # url(r'^cus_admin/', custom_site.urls),
+    url(r'^admin/', admin.site.urls),
+    url(r'^cus_admin/', custom_site.urls),
 ]

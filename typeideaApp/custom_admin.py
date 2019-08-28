@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-class BaseOwnerAdmin(object):
+class BaseOwnerAdmin(admin.ModelAdmin):
     """
     针对有owner属性的数据，重写:
     1. save_model -保证每条数据都属于当前用户

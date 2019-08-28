@@ -4,9 +4,9 @@ from typeideaApp.custom_site import custom_site
 from .models import Link, SideBar
 from typeideaApp.custom_admin import BaseOwnerAdmin
 
-import xadmin
+# import xadmin
 
-@xadmin.sites.register(Link)
+@admin.register(Link)
 class LinkAdmin(BaseOwnerAdmin):
     list_display = [
         'title', 'href', 'status',
@@ -18,7 +18,7 @@ class LinkAdmin(BaseOwnerAdmin):
     )
 
 
-@xadmin.sites.register(SideBar)
+@admin.register(SideBar)
 class SideBarAdmin(BaseOwnerAdmin):
     list_display = [
         'title', 'display_type', 'content',

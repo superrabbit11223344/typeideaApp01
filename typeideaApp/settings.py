@@ -32,9 +32,9 @@ INSTALLED_APPS = [
     'config',
     'comment',
     'typeideaApp',
-    'xadmin',
-    'crispy_forms',
-    'reversion',
+    # 'xadmin',
+    #     # 'crispy_forms',
+    #     # 'reversion',
 
     'django.contrib.admin',
     'django.contrib.auth',
