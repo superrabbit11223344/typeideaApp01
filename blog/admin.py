@@ -36,7 +36,8 @@ class PostAdmin(BaseOwnerAdmin):
         'title', 'category',
         'status', 'status_show',
         'owner', 'created_time',
-        'operator', 'pv', 'uv',
+        # 'operator',
+        'pv', 'uv',
                     ]
     # list_display_links = ['title', 'category']
     list_display_links = []
@@ -50,12 +51,12 @@ class PostAdmin(BaseOwnerAdmin):
 
 
 
-    def operator(self, obj):
-        return format_html(
-            '<a href="{}">编辑</a>',
-            reverse('admin:blog_post_change', args=(obj.id,))
-        )
-    operator.short_description = '操作'
+    # def operator(self, obj):
+    #     return format_html(
+    #         '<a href="{}">编辑</a>',
+    #         reverse('admin:blog_post_change', args=(obj.id,))
+    #     )
+    # operator.short_description = '操作'
 
 
 @admin.register(Category, site=custom_site)

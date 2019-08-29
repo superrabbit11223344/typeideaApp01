@@ -10,6 +10,7 @@ from .custom_site import custom_site
 
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
+from blog.apis import post_list, PostList
 
 # import xadmin
 
@@ -26,4 +27,6 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
     url(r'^admin/', admin.site.urls),
     url(r'^cus_admin/', custom_site.urls),
+    # url(r'^api/post/', post_list, name='post-list'),
+    url(r'^api/post/', PostList.as_view(), name='post-list'),
 ]

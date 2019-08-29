@@ -7,6 +7,7 @@ from typeideaApp.custom_admin import BaseOwnerAdmin
 
 # import xadmin
 
+
 @admin.register(Comment, site=custom_site)
 class CommentAdmin(BaseOwnerAdmin):
     list_display = [

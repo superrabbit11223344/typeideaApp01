@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'config',
     'comment',
     'typeideaApp',
+    'ckeditor',
+    'rest_framework',
     # 'xadmin',
     #     # 'crispy_forms',
     #     # 'reversion',
@@ -133,3 +135,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, THEME, "static"),
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',  # 配置代码插件
+    }
+}
