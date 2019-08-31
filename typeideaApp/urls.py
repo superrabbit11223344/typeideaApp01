@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls import url, include
+from django.conf.urls.static import static
 
 from config.views import LinkListView
 from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchView, AuthorView
@@ -12,7 +15,9 @@ from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
 from blog.apis import post_list, PostList
 
-# import xadmin
+import xadmin
+
+from .autocomplete import CategoryAutocomplete, TagAutocomplete
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name="index"),
@@ -25,8 +30,12 @@ urlpatterns = [
     url(r'^comment/$', CommentView.as_view(), name='comment'),
     url(r'^rss|feed', LatestPostFeed(), name='rss'),
     url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
-    url(r'^admin/', admin.site.urls),
-    url(r'^cus_admin/', custom_site.urls),
+    url(r'^admin/', xadmin.site.urls, name='xadmin'),
+    url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name='category-autocomplete'),
+    url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # url(r'^admin/', admin.site.urls),
+    # url(r'^cus_admin/', custom_site.urls),
     # url(r'^api/post/', post_list, name='post-list'),
     url(r'^api/post/', PostList.as_view(), name='post-list'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -33,10 +33,12 @@ INSTALLED_APPS = [
     'comment',
     'typeideaApp',
     'ckeditor',
+    'ckeditor_uploader',
     'rest_framework',
-    # 'xadmin',
-    #     # 'crispy_forms',
-    #     # 'reversion',
+    'xadmin',
+    'crispy_forms',
+    'dal',
+    'dal_select2',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -145,3 +147,10 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': 'codesnippet',  # 配置代码插件
     }
 }
+
+XADMIN_TITLE = 'Typeidea管理后台'
+XADMIN_FOOTER_TITLE = 'power by superrabbit'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CKEDITOR_UPLOAD_PATH = 'article_images'
