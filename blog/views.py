@@ -26,7 +26,6 @@ class IndexView(CommonViewMixin, ListView):
     paginate_by = 5
     context_object_name = 'post_list'
     template_name = 'blog/list.html'
-    # E:\typeideaApp\templates\themes\bootstrap\default\templates\blog\list.html
 
 
 class CategoryView(IndexView):
@@ -41,6 +40,7 @@ class CategoryView(IndexView):
     def get_queryset(self):
         queryset = super().get_queryset()
         category_id = self.kwargs.get('category_id')
+        import pdb; pdb.set_trace()
         return queryset.filter(category_id=category_id)
 
 
@@ -76,6 +76,7 @@ class PostDetailView(CommonViewMixin, DetailView):
         response = super().get(request, *args, **kwargs)
         self.handle_visited()
         return response
+
     def handle_visited(self):
         increase_pv = False
         increase_uv = False
@@ -95,8 +96,6 @@ class PostDetailView(CommonViewMixin, DetailView):
             Post.objects.filter(pk=self.object.id).update(pv=F('pv') + 1)
         elif increase_uv:
             Post.objects.filter(pk=self.object.id).update(pv=F('uv') + 1)
-
-
 
 
 class SearchView(IndexView):
